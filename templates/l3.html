@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nimble Maps</title>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  
+    
+
+    
+
+
+</head>
+<body>
+
+        <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+                  <a class="navbar-brand" href="index.html"><img src="../static/images/logoc.jpg" height="50px" width="150px"/></a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                
+                  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav ">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="index.html">HOME <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link " href="#">CONTACT</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+               
+              </header>
+        
+                 <!--Header Section Ends-->
+        
+                <!-- About SRM -->
+                 <section>
+                <div class="container-fluid">
+                    <div class="form-heading1"><b>Illumination (1am-3am)</b></div>
+                    <div id="map"></div>
+    <script>
+        function initMap(){
+
+            //map options
+            var options= {
+                zoom:17,
+                center:{lat:12.8174,lng:80.0401}
+            }
+
+            //new map
+            var map= new
+            google.maps.Map(document.getElementById('map'),options);
+
+            // add listen for click on maps
+            google.maps.event.addListener(map,'click',
+            function(event){
+                //add marker
+                addMarker({coords:event.latLng});
+
+            });
+
+
+           
+
+
+
+            // //new markers
+            // var marker=new google.maps.Marker({
+            //     position:{lat:12.8259,lng:80.0395},
+            //     map:map,
+            //     icon:'srm.jpg'
+            // });
+
+            // //info window
+            // var infowindow=new google.maps.InfoWindow({
+            //     content:'<h1>Potheri</h1>'
+            // });
+
+            // marker.addListener('click',function(){
+            //     infowindow.open(map,marker);
+            // });
+
+
+
+            
+
+
+            //array for markers
+
+            var markers=[
+            {
+                coords:{lat:12.818874,lng:80.041326},
+                iconImage:'../static/images/light2.png'
+            },
+            {
+                coords:{lat:12.818403,lng:80.041294},
+                iconImage:'../static/images/light2.png'
+            },
+            {
+                coords:{lat:12.81759,lng:80.041219},
+                iconImage:'../static/images/light2.png'
+            },
+            {
+                coords:{lat:12.819815,lng:80.042034},
+                iconImage:'../static/images/light2.png'
+            },
+            {
+                coords:{lat:12.818591,lng:80.039491},
+                iconImage:'../static/images/light2.png'
+            },
+            {
+                coords:{lat:12.819459,lng:80.037731},
+                iconImage:'../static/images/light2.png'
+            },
+            {
+                coords:{lat:12.819501,lng:80.039233},
+                iconImage:'../static/images/light2.png'
+            }
+            ];
+
+            
+
+            //loop through markers
+
+            for(var i=0;i<markers.length;i++)
+            {
+                //add markers
+                addMarker(markers[i]);
+            }
+
+
+            function addMarker(props){
+            //new markers
+            var marker=new google.maps.Marker({
+                position:props.coords,
+                map:map,
+                //icon:props.iconImage
+            });
+
+            //check for custom icon
+            if(props.iconImage)
+            {
+                //set icon image
+                marker.setIcon(props.iconImage);
+            }
+
+            //check for custom content
+            if(props.content)
+            {
+                //set info window
+            var infowindow=new google.maps.InfoWindow({
+                content:props.content
+            });
+
+            marker.addListener('click',function(){
+                infowindow.open(map,marker);
+            });
+            }
+
+            }
+
+         }
+         </script>
+
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR4uDZ6aLFwPGnD5-JhHvjAkAzCHx258c&callback=initMap">
+            </script>
+                  
+                 </div>
+                 </section> 
+                 
+        
+        
+                 <!--Footer Section Ends-->
+        
+                       
+                        <footer class="my-footer page-footer font-small grey">
+        
+                            <!-- Copyright -->
+                            <div class="footer-copyright text-center py-3">© Copyright:
+                              <a href="dhairya.lodha@gmail.com"> dhairya.lodha@gmail.com </a> - All rights reserved.
+                            </div>
+                            <!-- Copyright -->
+                          
+                          </footer>
+        
+        
+                 <!--Footer Section Ends-->
+    
+</body>
+</html>

@@ -1,10 +1,16 @@
 body {
     margin: 0;
     padding: 0;
+    background-image: linear-gradient(to bottom right,white,#fdfdfd );
+    
 }
+
+ #nm {
+    background-image: linear-gradient(to bottom right,#fff, #9dc4d6);
+ }
   
-  section:nth-child(odd) {
-    background:#f8f9fa
+  section:nth-child(even) {
+    background-image: linear-gradient(to bottom right,#fff, silver);
   }
 
   section{
@@ -33,12 +39,18 @@ nav ul li{
 .heading {
     text-align: center;
     padding-bottom: 20px;
+    font-size: 20px;
 }
 
 .content {
  text-align: left;
+ font-size: 17px;
 }
 
+#map{
+    height: 500px;
+    width:100%;
+}
 
 #map3{
     height: 500px;
@@ -60,17 +72,30 @@ nav ul li{
     width:100%;
 }
 
-
-
+.btn-secondary {
+    color: #fff;
+    border-color: #6c757d;
+    border-radius: 9px;
+    
+}
 
 
 .form-heading {
-    color: cadetblue;
+    color: #19406b;
     font-size: 30px;
     text-align: center;
 
     padding-top: 15px;
     padding-bottom: 25px;
+}
+
+.form-heading1 {
+    color: #19406b;
+    font-size: 30px;
+    text-align: center;
+
+    padding-top: 10px;
+    padding-bottom: 15px;
 }
 
 
@@ -83,6 +108,6 @@ nav ul li{
     background-color: #f8f9fa!important;
     color: lightslategrey;
     margin-top: 0px;
-    border-top: 1px solid grey;
+    
 
 }

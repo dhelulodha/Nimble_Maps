@@ -97,13 +97,16 @@
                           <li class="nav-item">
                             <a class="nav-link active" href="#home1">Timings</a>
                           </li>
-                          <li class="nav-item">
+                          <!-- <li class="nav-item">
                             <a class="nav-link" href="#menu1">Day</a>
+                          </li> -->
+                          <li class="nav-item">
+                            <a class="nav-link" href="#menu2">Day</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#menu2">Night</a>
+                                <a class="nav-link" href="#menu3">Night</a>
                           </li>
-                        </ul>
+                         </ul>
                       
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -218,16 +221,16 @@
                             
                              
 
-
+<!-- 
                           <div id="menu1" class="container tab-pane fade"><br>
                             
                             <div id="map2"></div>
 
                             <script 
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR4uDZ6aLFwPGnD5-JhHvjAkAzCHx258c&callback=initMap">
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR4uDZ6aLFwPGnD5-JhHvjAkAzCHx258c&callback=initMap1">
                             </script>
                             <script>
-                                function initMap(){
+                                function initMap1(){
                         
                                     //map options
                                     var optionss= {
@@ -319,7 +322,7 @@
                                 }
                             </script>
 
-                          </div>
+                          </div> -->
 
 
                           
@@ -368,8 +371,7 @@
                                           new google.maps.LatLng(12.83442, 80.05052));
                               
                                       // The photograph is courtesy of the U.S. Geological Survey.
-                                      var srcImage = 'https://developers.google.com/maps/documentation/javascript/';
-                                      srcImage += 'examples/full/images/talkeetna.png';
+                                      var srcImage = '../static/images/night.png';
                               
                                       overlay = new USGSOverlay(bounds, srcImage, map1);
                                     }
@@ -444,6 +446,128 @@
                                   </script>
 
                           </div>
+
+                          
+                          
+                          <div id="menu3" class="container tab-pane fade"><br>
+
+                            <div id="map1"></div>
+                            <script 
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR4uDZ6aLFwPGnD5-JhHvjAkAzCHx258c&callback=initMap">
+                             </script>
+                            
+                            <script>
+                                    // This example adds hide() and show() methods to a custom overlay's prototype.
+                                    // These methods toggle the visibility of the container <div>.
+                                    // Additionally, we add a toggleDOM() method, which attaches or detaches the
+                                    // overlay to or from the map.
+                              
+                                    var overlay;
+                              
+                                    USGSOverlay.prototype = new google.maps.OverlayView();
+                              
+                                    function initMap() {
+                                      var map1 = new google.maps.Map(document.getElementById('map1'), {
+                                        zoom:15,
+                                        center:{lat:12.8230745,lng:80.0437735},
+                                        mapTypeId: 'satellite'
+                                      });
+                              
+                                      // //new markers
+                                          var marker=new google.maps.Marker({
+                                              position:{lat:62.281819,lng:-150.287132},
+                                              map:map1,
+                                              icon:'../static/images/Marker for potholes 3.png'
+                                          });
+                              
+                                          var marker=new google.maps.Marker({
+                                              position:{lat:62.400471,lng:-150.005608},
+                                              map:map1
+                                          });
+                              
+                              
+                              
+                                      var bounds = new google.maps.LatLngBounds(
+                                          new google.maps.LatLng(12.81996,80.03606),
+                                          new google.maps.LatLng(12.83442, 80.05052));
+                              
+                                      // The photograph is courtesy of the U.S. Geological Survey.
+                                      var srcImage = '../static/images/night.png';
+                              
+                                      overlay = new USGSOverlay(bounds, srcImage, map1);
+                                    }
+                              
+                                    /** @constructor */
+                                    function USGSOverlay(bounds, image, map1) {
+                              
+                                      // Now initialize all properties.
+                                      this.bounds_ = bounds;
+                                      this.image_ = image;
+                                      this.map_ = map1;
+                              
+                                      // Define a property to hold the image's div. We'll
+                                      // actually create this div upon receipt of the onAdd()
+                                      // method so we'll leave it null for now.
+                                      this.div_ = null;
+                              
+                                      // Explicitly call setMap on this overlay
+                                      this.Map(map1);
+                                    }
+                              
+                                    /**
+                                     * onAdd is called when the map's panes are ready and the overlay has been
+                                     * added to the map.
+                                     */
+                                    USGSOverlay.prototype.onAdd = function() {
+                              
+                                      var div = document.createElement('div');
+                                      div.style.border = 'none';
+                                      div.style.borderWidth = '0px';
+                                      div.style.position = 'absolute';
+                              
+                                      // Create the img element and attach it to the div.
+                                      var img = document.createElement('img');
+                                      img.src = this.image_;
+                                      img.style.width = '100%';
+                                      img.style.height = '100%';
+                                      img.style.opacity='0.5';
+                                      div.appendChild(img);
+                              
+                                      this.div_ = div;
+                              
+                                      // Add the element to the "overlayImage" pane.
+                                      var panes = this.getPanes();
+                                      panes.overlayImage.appendChild(this.div_);
+                                    };
+                              
+                                    USGSOverlay.prototype.draw = function() {
+                              
+                                      // We use the south-west and north-east
+                                      // coordinates of the overlay to peg it to the correct position and size.
+                                      // To do this, we need to retrieve the projection from the overlay.
+                                      var overlayProjection = this.getProjection();
+                              
+                                      // Retrieve the south-west and north-east coordinates of this overlay
+                                      // in LatLngs and convert them to pixel coordinates.
+                                      // We'll use these coordinates to resize the div.
+                                      var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
+                                      var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+                              
+                                      // Resize the image's div to fit the indicated dimensions.
+                                      var div = this.div_;
+                                      div.style.left = sw.x + 'px';
+                                      div.style.top = ne.y + 'px';
+                                      div.style.width = (ne.x - sw.x) + 'px';
+                                      div.style.height = (sw.y - ne.y) + 'px';
+                                    };
+                              
+                              
+                              
+                                    google.maps.event.addDomListener(window, 'load', initMap);
+                                  </script>
+
+                          </div>
+                          
                         </div>
                       </div>
                       
