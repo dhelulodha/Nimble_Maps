@@ -1,0 +1,1 @@
+PotholeImageDataset_pp is already pre-process to target size
